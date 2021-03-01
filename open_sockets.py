@@ -9,21 +9,23 @@ import json
 """
 Notes: .env is chmod 400
 """
-async def consume(connectionurl, sub_request, redis):
-    async with websockets.connect(connectionurl) as websocket:
-        await websocket.send(sub_request)
-        await consumer_handler(websocket=websocket)
+class Socket:
+    def __init__(self, exchange_information:dict):
+        self.exchange_id = exchange_information['exchange_id']
+        self.socket_url = exchange_information['endpoint']
+        self.server_request = json.dumps(exchange_information['params'])
 
-async def consumer_handler(websocket):
-    async for message in websocket:
-        try:
-            response = json.loads(message)
-            best_ask = response['b']
-            best_bid = response['a']
-            global r
-            r.mset(({}))
-        except:
-            logger.error("Error in parsing result")
+    async def consume(self, connectionurl, sub_request):
+        async with websockets.connect(self.socket_url) as websocket:
+            await websocket.send(self.server_request)
+            await self.consumer_handler(websocket=websocket)
+
+    async def consumer_handler(self, websocket):
+        async for message in websocket:
+            try:
+                response = json.loads(message)
+            except:
+                logger.error("Error in parsing result")
 
 if __name__ == '__main__':
     # Init logging, Redis and Environment vars (API KEYS etc)
@@ -33,3 +35,4 @@ if __name__ == '__main__':
     load_dotenv()
 
     asyncio.get_event_loop().run_until_complete(consume())
+
