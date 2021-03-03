@@ -1,0 +1,9 @@
+version: "3.7"
+
+services: 
+  socket_servers:
+    build: ./exchange_scrape
+    volumes: 
+      - ./exchange_scrape:/usr/src/app
+    ports: 
+      -  5001:80

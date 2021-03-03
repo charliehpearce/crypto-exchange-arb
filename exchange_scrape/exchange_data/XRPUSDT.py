@@ -7,5 +7,6 @@ binance_XRPUSDT = {
             "xrpusdt@bookTicker"
         ],
         "id":1
-    }
+    },
+    'reponse_map': {'best_bid':"b", 'best_ask':"a"}
 }
