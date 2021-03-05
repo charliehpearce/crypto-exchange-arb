@@ -67,6 +67,7 @@ class ExchangeSocket:
                     print(e)
 
             except:
+                print('Problem parsing result')
                 print(result)
 
     
@@ -83,13 +84,13 @@ if __name__ == '__main__':
     # Create redis client
     redis_client = RedisClient(redis_host=redis_host, redis_port=redis_port)
 
-    # Start each exchange socket on a different daemon thread
+    # Start each exchange socket on a different thread
     thread_list = []
-    for socket in exchange_sockets.TEST:
+    for socket in exchange_sockets.XRPUSDT:
         thread = threading.Thread(target=ExchangeSocket, args=(socket, 'XRPUSDT'))
         thread_list.append(thread)
-        thread.daemon = True
         thread.start()
-
     for index, thread in enumerate(thread_list):
         thread.join()
+
+    

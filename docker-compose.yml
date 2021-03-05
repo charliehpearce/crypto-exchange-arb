@@ -1,9 +1,20 @@
 version: "3.7"
 
 services: 
-  socket_servers:
-    build: ./exchange_scrape
+  exchange_sockets:
+    build:  ./exchange_scrape
     volumes: 
       - ./exchange_scrape:/usr/src/app
     ports: 
-      -  5001:80
+      - 80:80
+    environment:
+      - REDIS_HOST=redis_price_db
+      - REDIS_PORT=5001
+
+  redis_price_db:
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 5001:5001
+    volumes:
+      - ./redis/:/usr/local/etc/redis/

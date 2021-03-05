@@ -3,5 +3,10 @@ exchange_ids = {
         'name': 'Binance',
         'api_key_name': 'BINANCE_API_KEY',
         'secret_key_name': 'BINANCE_SECRET_KEY'
+    },
+    2: {
+        'name': 'Huobi',
+        'api_key_name': 'BINANCE_API_KEY',
+        'secret_key_name': 'BINANCE_SECRET_KEY'
     }
 }
