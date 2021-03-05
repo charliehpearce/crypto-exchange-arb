@@ -23,27 +23,12 @@ XRPUSDT = [
     },
     'reponse_map': {'best_bid':["tick","bid"], 'best_ask':["tick","ask"], "id":["tick","seqId"]},
     'gzip': True
-},
-
-]
-
-TEST = [
-{
-    'exchange_id': 3,
-    'exchange_name':'Kraken',
-    'endpoint': 'wss://ws.kraken.com/',
-    'sub_request': {
-        "event": "subscribe",
-        "pair": ["XRP/USDT"],
-        "subscription": {"name": "ticker"}
-    },
-    'reponse_map': {'best_bid':[1,"b",0], 'best_ask':[1,"a",0], "id":[3]},
-    'gzip': False
 }
 ]
 
+TEST = [
 
-
+]
 
 """
 TEMPLATE:
@@ -56,5 +41,17 @@ TEMPLATE:
     },
     'reponse_map': {'best_bid':[], 'best_ask':[], "id":[]},
     'gzip': True/False
+}
+"""
+
+"""
+Not working:
+{
+    'exchange_id': 3,
+    'exchange_name':'Kraken',
+    'endpoint': 'wss://ws.kraken.com/',
+    'sub_request': { "event": "subscribe", "pair": ["BTC/USD"], "subscription": { "name": "spread" }},
+    'reponse_map': {'best_bid':[1,"b",0], 'best_ask':[1,"a",0], "id":[3]},
+    'gzip': False
 }
 """

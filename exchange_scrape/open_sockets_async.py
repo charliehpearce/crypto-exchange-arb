@@ -4,7 +4,7 @@ from exchange_data import exchange_sockets
 import redis
 import json
 import gzip
-import threading 
+import asyncio
 
 class RedisClient:
     def __init__(self, redis_host:str, redis_port):
@@ -32,8 +32,8 @@ class ExchangeSocket:
         self.gzip = exchange_information['gzip']
         self.consume()
     
-    def open_socket(self, ws):
-        ws.send(json.dumps(self.server_request))
+    async def open_socket(self, ws):
+        await ws.send(json.dumps(self.server_request))
     
     @staticmethod
     def on_ping(ws, message):
@@ -44,7 +44,7 @@ class ExchangeSocket:
         print(f'Pong recieved from server {json.dumps(message)}, no need to respond')
     
     # Handles the responses from the server
-    def on_message(self, ws, message):
+    async def on_message(self, ws, message):
         
         # Decompress and deserialize 
         if self.gzip:
