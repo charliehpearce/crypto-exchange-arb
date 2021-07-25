@@ -1,3 +1,10 @@
-Cross cryptocurrency exchange arbitage system 
+# Cross cryptocurrency exchange arbitage system 
 
-Historical data can be aqquired from http://www.cryptodatadownload.com/
+Still in early development. 
+
+Currently stores streams from websockets in a redis sorted list for data ingestion
+
+To do:
+[ ] Analytics engine for actions
+[ ] Add more exchanges
+[ ] Current holdings
